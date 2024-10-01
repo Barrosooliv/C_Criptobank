@@ -53,11 +53,11 @@ Acessado através do `menu()`, a opção “saldo” permite que o usuário visu
 
 ### `op_extrato()`
 
-Tal como a visualização do saldo, o extrato chama o carregamento de usuários e acessa o extrato através do struct na posição `usuario_log`, todavia, a forma pela qual a visualização ocorre é um pouco mais complexa. Dado que o extrato deve conter no máximo 100 transações de modo que na 101° transação a operação mais antiga seja apagada, projetamos um loop para formatação das linhas do extrato e verificação do limite de processos.
+Tal como a visualização do saldo, o extrato chama o carregamento de usuários e acessa o extrato através do struct na posição `usuario_log`, todavia, a forma pela qual a visualização ocorre é um pouco mais complexa. Dado que o extrato deve conter no máximo 100 transações, projetamos um loop para formatação das linhas do extrato e verificação do limite de processos.
 
 A maneira que escolhemos manusear o extrato é através da concatenação de uma longa string, cada nova operação é adicionada ao fim dessa string no struct `usuario`, com uma “/” para diferenciar processos. Para a leitura dessa string utilizamos a função `strtok()` da biblioteca `<string.h>` que permite dividir a string em partes menores (tokens) com base em um delimitador, neste caso, a barra "/", e, ao ser lida, a função percorre a string separando cada operação individualmente. O tratamento ocorre até não existirem mais barras na string.
 
-No mesmo loop onde é feito a formatação, os tokens são adicionados a um array, que suporta até 100 operações, e incrementamos um contador (`totalop`) para controlarmos o total de processos. Em seguida, ocorre uma verificação do valor armazenado no contador, caso seja maior que 100, todas as operações voltam uma posição para trás, removendo a mais antiga. Então ocorre a exibição das operações armazenadas no array.
+No mesmo loop onde é feito a formatação, os tokens são adicionados a um array, e incrementamos um contador (`totalop`) para controlarmos o total de processos. Em seguida, ocorre uma verificação do valor armazenado no contador, caso seja maior que 100, a leitura é interrompida. Então ocorre a exibição das operações armazenadas no array.
 
 ### `op_deposito()`
 
